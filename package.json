@@ -1,0 +1,16 @@
+{
+  "name": "darkindex",
+  "private": true,
+  "workspaces": [
+    "packages/relay",
+    "packages/sdk",
+    "packages/dashboard"
+  ],
+  "scripts": {
+    "dev:relay": "npm run dev -w packages/relay",
+    "dev:dashboard": "npm run dev -w packages/dashboard",
+    "build:sdk": "npm run build -w packages/sdk",
+    "test": "npm run test --workspaces --if-present",
+    "demo": "npm run demo -w packages/relay"
+  }
+}

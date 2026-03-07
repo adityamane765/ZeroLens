@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0f0d1a;
+  --border: #1e1730;
+  --card: #12102a;
+  --muted: #5a4f6a;
+  --muted2: #3a2f4a;
+}
+
+body {
+  background: var(--bg);
+  color: #f1f5f9;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 18s linear infinite; }
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadein { animation: fadein 0.35s ease-out forwards; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+.animate-pulse-dot { animation: pulse-dot 1.2s ease-in-out infinite; }
+
+@keyframes cipher {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+.animate-cipher { animation: cipher 1.6s ease-in-out infinite; }

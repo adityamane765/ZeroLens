@@ -1,0 +1,12 @@
+node_modules/
+.env
+dist/
+.next/
+target/
+*.swp
+.DS_Store
+*.log
+misc/
+.scarb/
+dev.db
+*.sqlite
