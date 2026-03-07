@@ -42,7 +42,7 @@ export function BlockStream() {
         <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#ff5f57' }} />
         <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#febc2e' }} />
         <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#28c840' }} />
-        <span className="ml-3" style={{ color: '#3a2f4a' }}>darkindex · starknet-sepolia · watching</span>
+        <span className="ml-3" style={{ color: '#3a2f4a' }}>zerolens · starknet-sepolia · watching</span>
         <span className="ml-auto flex items-center gap-1.5" style={{ color: '#28c840' }}>
           <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse-dot" style={{ background: '#28c840' }} />
           live

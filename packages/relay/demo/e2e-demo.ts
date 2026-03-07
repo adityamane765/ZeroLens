@@ -1,5 +1,5 @@
 /**
- * DarkIndex End-to-End Demo
+ * ZeroLens End-to-End Demo
  *
  * Run with relay already started on port 3001:
  *   npm run dev -w packages/relay
@@ -16,7 +16,7 @@
  *   6. Queue status reflecting final state
  */
 
-import { DarkIndexClient } from '../../sdk/src/DarkIndexClient.js';
+import { ZeroLensClient } from '../../sdk/src/ZeroLensClient.js';
 import { computeCommitment } from '../../sdk/src/crypto/poseidon.js';
 
 const RELAY_URL = process.env.RELAY_URL ?? 'http://localhost:3001';
@@ -51,7 +51,7 @@ function wait(ms: number): Promise<void> {
 }
 
 async function demo() {
-  console.log('\nDarkIndex — E2E Demo');
+  console.log('\nZeroLens — E2E Demo');
   console.log(`Relay: ${RELAY_URL}\n`);
 
   // ── Health check ──────────────────────────────────────────────
@@ -64,7 +64,7 @@ async function demo() {
   }
   ok(`Relay healthy: ${JSON.stringify(healthBody)}`);
 
-  const client = new DarkIndexClient({ relayUrl: RELAY_URL });
+  const client = new ZeroLensClient({ relayUrl: RELAY_URL });
 
   // ── Component 1: Private Event Watching ──────────────────────
   separator('1. Component 1 — Private event watching');
@@ -175,7 +175,7 @@ async function demo() {
   ok(`Revealed  : ${status.stats.revealed}`);
 
   console.log('\n' + '─'.repeat(60));
-  console.log('  DarkIndex demo complete.');
+  console.log('  ZeroLens demo complete.');
   console.log('─'.repeat(60) + '\n');
 }
 

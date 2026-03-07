@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useAccount } from '@starknet-react/core';
 import { TimeLockCountdown } from './TimeLockCountdown';
-import { darkindexClient } from '../../lib/darkindex';
+import { zerolensClient } from '../../lib/zerolens';
 import type { PendingEntry } from '../../hooks/useCommitments';
 
 interface StoredTxDetails {
@@ -26,7 +26,7 @@ export function CommitmentCard({ entry, onRevealed }: Props) {
 
   // Retrieve tx details stored at commit time
   const storedRaw = typeof window !== 'undefined'
-    ? sessionStorage.getItem(`darkindex:tx:${entry.commitment}`)
+    ? sessionStorage.getItem(`zerolens:tx:${entry.commitment}`)
     : null;
   const txDetails: StoredTxDetails | null = storedRaw ? JSON.parse(storedRaw) : null;
   const hasWallet = !!account;
@@ -52,8 +52,8 @@ export function CommitmentCard({ entry, onRevealed }: Props) {
 
       // Tell the relay the tx was revealed. If we have a real tx_hash,
       // the relay verifies it on-chain to confirm the reveal is binding.
-      await darkindexClient.revealTx(entry.commitment, txPayload);
-      sessionStorage.removeItem(`darkindex:tx:${entry.commitment}`);
+      await zerolensClient.revealTx(entry.commitment, txPayload);
+      sessionStorage.removeItem(`zerolens:tx:${entry.commitment}`);
       onRevealed();
     } catch (e) {
       setError((e as Error).message);

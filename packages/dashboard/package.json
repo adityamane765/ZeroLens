@@ -1,5 +1,5 @@
 {
-  "name": "@darkindex/dashboard",
+  "name": "@zerolens/dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
   "dependencies": {
     "@starknet-react/chains": "^0.1.7",
     "@starknet-react/core": "^3.5.0",
-    "@darkindex/sdk": "*",
+    "@zerolens/sdk": "*",
     "clsx": "^2.1.0",
     "get-starknet-core": "^4.0.0",
     "lucide-react": "^0.400.0",

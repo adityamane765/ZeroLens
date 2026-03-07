@@ -4,8 +4,8 @@ import { useAccount, useProvider } from '@starknet-react/core';
 import { hash, num, CallData, BlockTag } from 'starknet';
 import { RevealQueuePanel } from '../../components/mempool/RevealQueuePanel';
 import { useCommitments } from '../../hooks/useCommitments';
-import { darkindexClient } from '../../lib/darkindex';
-import type { SubmitCommitmentResult } from '@darkindex/sdk';
+import { zerolensClient } from '../../lib/zerolens';
+import type { SubmitCommitmentResult } from '@zerolens/sdk';
 
 const DEFAULT_CONTRACT = '0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d';
 const DEFAULT_ENTRYPOINT = 'transfer';
@@ -116,13 +116,13 @@ export default function MempoolPage() {
         nonce,
       });
 
-      const result = await darkindexClient.submitPrivateTx({
+      const result = await zerolensClient.submitPrivateTx({
         txHash,
         senderPubkey: address,
         nonce,
       });
 
-      sessionStorage.setItem(`darkindex:tx:${result.commitment}`, JSON.stringify({
+      sessionStorage.setItem(`zerolens:tx:${result.commitment}`, JSON.stringify({
         calls,
         nonce,
         maxFee,

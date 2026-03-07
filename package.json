@@ -1,5 +1,5 @@
 {
-  "name": "darkindex",
+  "name": "zerolens",
   "private": true,
   "workspaces": [
     "packages/relay",

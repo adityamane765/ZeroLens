@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState, useCallback } from 'react';
-import { RELAY_URL } from '../lib/darkindex';
+import { RELAY_URL } from '../lib/zerolens';
 
 export interface PendingEntry {
   commitment: string;

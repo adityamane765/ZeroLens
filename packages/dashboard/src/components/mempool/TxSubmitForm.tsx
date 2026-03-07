@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import type { SubmitCommitmentResult } from '@darkindex/sdk';
+import type { SubmitCommitmentResult } from '@zerolens/sdk';
 
 interface Props {
   onSubmit: (params: { txHash: string; senderPubkey: string; nonce: string }) => Promise<void>;

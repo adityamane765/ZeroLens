@@ -1,7 +1,7 @@
 import { createFilterCommitment, type FilterProofBundle } from './proof/filterProof.js';
 import { createTxCommitment, type TxProofBundle } from './proof/txValidityProof.js';
 
-export interface DarkIndexClientOptions {
+export interface ZeroLensClientOptions {
   relayUrl: string;
 }
 
@@ -48,12 +48,12 @@ export interface RevealResult {
   sequencerError?: string;
 }
 
-export class DarkIndexClient {
+export class ZeroLensClient {
   private relayUrl: string;
   private filterBundles = new Map<string, FilterProofBundle>();
   private txBundles = new Map<string, TxProofBundle>();
 
-  constructor(options: DarkIndexClientOptions) {
+  constructor(options: ZeroLensClientOptions) {
     this.relayUrl = options.relayUrl.replace(/\/$/, '');
   }
 

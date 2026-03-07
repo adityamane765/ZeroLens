@@ -34,7 +34,7 @@ export default function DocsPage() {
   return (
     <div className="min-h-screen">
       <div className="mb-6 flex items-center gap-2 text-xs font-mono" style={{ color: '#3a2f4a' }}>
-        <Link href="/" className="transition-colors hover:text-violet-400">darkindex</Link>
+        <Link href="/" className="transition-colors hover:text-violet-400">zerolens</Link>
         <span>/</span>
         <span style={{ color: '#5a4f6a' }}>docs</span>
       </div>
@@ -62,10 +62,10 @@ export default function DocsPage() {
 
           <section id="overview">
             <span className="text-xs font-mono uppercase tracking-widest" style={{ color: '#7c3aed' }}>documentation</span>
-            <h1 className="text-3xl font-bold mt-2 mb-4" style={{ color: '#fff' }}>How DarkIndex works</h1>
+            <h1 className="text-3xl font-bold mt-2 mb-4" style={{ color: '#fff' }}>How ZeroLens works</h1>
             <div className="text-sm leading-relaxed space-y-3" style={{ color: '#5a4f6a' }}>
               <p>Starknet has two surveillance gaps: every RPC query reveals which addresses and events you are watching, and the mempool is transparent — pending transactions are visible before inclusion.</p>
-              <p>DarkIndex adds a ZK-gated privacy relay that enforces cryptographic filter commitments (Poseidon hash preimages) and a commit-reveal mempool queue with time-lock ordering.</p>
+              <p>ZeroLens adds a ZK-gated privacy relay that enforces cryptographic filter commitments (Poseidon hash preimages) and a commit-reveal mempool queue with time-lock ordering.</p>
             </div>
           </section>
 

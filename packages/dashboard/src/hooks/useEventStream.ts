@@ -1,7 +1,7 @@
 'use client';
 import { useState, useCallback } from 'react';
-import { darkindexClient } from '../lib/darkindex';
-import type { StarknetEvent } from '@darkindex/sdk';
+import { zerolensClient } from '../lib/zerolens';
+import type { StarknetEvent } from '@zerolens/sdk';
 
 export interface EventStreamState {
   events: StarknetEvent[];
@@ -24,7 +24,7 @@ export function useEventStream() {
     async (params: { contractAddr: string; eventKey: string; fromBlock: number; toBlock: number | 'latest' }) => {
       setState((s) => ({ ...s, loading: true, error: null }));
       try {
-        const result = await darkindexClient.watchEvents({
+        const result = await zerolensClient.watchEvents({
           ...params,
           chunkSize: 200,
         });

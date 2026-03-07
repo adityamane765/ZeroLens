@@ -1,5 +1,5 @@
 'use client';
-import type { StarknetEvent } from '@darkindex/sdk';
+import type { StarknetEvent } from '@zerolens/sdk';
 import { EventCard } from './EventCard';
 
 function exportJson(events: StarknetEvent[]) {
@@ -7,7 +7,7 @@ function exportJson(events: StarknetEvent[]) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `darkindex-events-${Date.now()}.json`;
+  a.download = `zerolens-events-${Date.now()}.json`;
   a.click();
   URL.revokeObjectURL(url);
 }

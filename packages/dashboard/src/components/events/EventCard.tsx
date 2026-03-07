@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import type { StarknetEvent } from '@darkindex/sdk';
+import type { StarknetEvent } from '@zerolens/sdk';
 
 const TRANSFER_KEY = '0x99cd8bde557814842a3121e8ddfd433a539b8c9f14bf31ebf108d12e6196e9';
 

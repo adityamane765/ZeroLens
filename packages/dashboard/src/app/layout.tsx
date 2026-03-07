@@ -4,7 +4,7 @@ import { StarknetProvider } from '../providers/StarknetProvider';
 import { Header } from '../components/Header';
 
 export const metadata: Metadata = {
-  title: 'DarkIndex — Private Starknet Indexer',
+  title: 'ZeroLens — Private Starknet Indexer',
   description:
     'ZK-gated private event indexer and mempool simulator for Starknet.',
 };
