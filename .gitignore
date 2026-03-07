@@ -1,7 +1,7 @@
 node_modules/
 .env
-dist/
-.next/
+packages/relay/dist/
+packages/dashboard/.next/
 target/
 *.swp
 .DS_Store
