@@ -35,7 +35,7 @@ export default function HomePage() {
         {/* right: title + cards */}
         <div className="flex flex-col gap-6">
           <h1 className="text-5xl font-bold tracking-tight leading-tight" style={{ color: '#fff' }}>
-            dark<span style={{ background: 'linear-gradient(90deg, #c4b5fd, #7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>index</span>
+            zero<span style={{ background: 'linear-gradient(90deg, #c4b5fd, #7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>lens</span>
           </h1>
 
           <div className="flex flex-col gap-px rounded-xl overflow-hidden" style={{ background: '#1e1730' }}>
