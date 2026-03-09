@@ -92,6 +92,27 @@ ZeroLens adds a ZK-gated privacy relay in front of Starknet RPC:
 
 ---
 
+## How Event Filtering Works
+
+The relay fetches a **blind superset** — `starknet_getEvents` with no address or key filter, just a block range (up to 500 events per chunk). Your browser receives all events and filters locally using your private inputs:
+
+```
+event.from_address === contractAddr  (optional — leave blank to match any contract)
+event.keys[0]      === eventKey      (required)
+```
+
+**Why no server-side filter?** Passing `contract_address` or `keys` to `starknet_getEvents` would tell the RPC node exactly what you're watching. ZeroLens never does this — the relay is blind by design.
+
+**The tradeoff:** The 500-event superset covers a rolling window of blocks. On a busy testnet, high-volume contracts (e.g. STRK token) can dominate the chunk, crowding out events from niche contracts. Mitigations:
+
+- Use a narrow block range targeting recent activity
+- Use continuation tokens to paginate through more chunks
+- Leave the contract address field blank to match your event key across all contracts in the superset
+
+**Production path:** Larger supersets (10k+ events), background pre-fetching, and PIR (Private Information Retrieval) techniques would improve recall without sacrificing privacy.
+
+---
+
 ## ZK Proof Design
 
 > **Hash preimage proof as formal specification.**
@@ -289,7 +310,7 @@ WebSocket stream. Messages: `{ type: "commitment_added" | "tx_revealed", ... }`.
 ## SDK Usage
 
 ```typescript
-import { ZeroLensClient } from '@ZeroLens/sdk';
+import { ZeroLensClient } from '@zerolens/sdk';
 
 const client = new ZeroLensClient({ relayUrl: 'http://localhost:3001' });
 
