@@ -2,8 +2,6 @@
 
 **Privacy-preserving event indexing and private mempool for Starknet.**
 
-Built for the [Re{define} Hackathon](https://www.redefined.xyz/) · Feb 27 – Mar 10, 2026.
-
 ---
 
 ## The Problem
@@ -20,75 +18,27 @@ Starknet has two invisible surveillance layers:
 
 ZeroLens adds a ZK-gated privacy relay in front of Starknet RPC:
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                       ZeroLens                          │
-│                                                         │
-│  Component 1: Private Event Indexer                     │
-│                                                         │
-│  Browser                Relay               Starknet    │
-│  ────────               ─────               ────────    │
-│  secret = random()                                      │
-│  C = Poseidon(addr,                                     │
-│        key, secret)                                     │
-│      │                                                  │
-│      ├─ POST /rpc/private-events ──────────────────►    │
-│      │   { commitment: C,                               │
-│      │     proofInputs: [addr, key, secret] }           │
-│      │                                                  │
-│      │            Relay verifies:                       │
-│      │            Poseidon(inputs) == C? ──► YES        │
-│      │                                                  │
-│      │            ┌─────────────────────────────────►   │
-│      │            │  getEvents(NO address/key filter)   │
-│      │            │  returns superset                   │
-│      │            ◄─────────────────────────────────┘   │
-│      │                                                  │
-│      ◄─ superset of all events ──────────────────────   │
-│                                                         │
-│  Browser filters locally:                               │
-│    event.from_address == addr && event.keys[0] == key   │
-│                                                         │
-│  ➜ Relay never sees the plaintext filter.               │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
+**Component 1 — Private Event Indexer**
 
-┌─────────────────────────────────────────────────────────┐
-│  Component 2: Private Mempool (commit-reveal)           │
-│                                                         │
-│  Browser                Relay               Starknet    │
-│  ────────               ─────               ────────    │
-│  secret = random()                                      │
-│  C = Poseidon(txHash,                                   │
-│        pubkey, nonce,                                   │
-│        secret)                                          │
-│      │                                                  │
-│      ├─ POST /rpc/submit-commitment ────────────────►   │
-│      │   { commitment: C,                               │
-│      │     proofInputs: [txHash, pubkey,                │
-│      │                   nonce, secret] }               │
-│      │                                                  │
-│      │   Relay stores C with timeLockExpiry             │
-│      │   (position locked, tx content hidden)           │
-│      │                                                  │
-│      ◄─ { position, timeLockExpiry } ────────────────   │
-│                                                         │
-│      [wait TIME_LOCK_SECONDS]                           │
-│                                                         │
-│      ├─ POST /rpc/reveal-tx ───────────────────────►    │
-│      │   { commitment: C, txPayload }                   │
-│      │                                                  │
-│      │   Relay: time-lock elapsed? YES                  │
-│      │   Marks revealed, broadcasts WS update           │
-│      │                              ─────────────────►  │
-│      │                              submit to sequencer │
-│      ◄─ { ok: true } ────────────────────────────────   │
-│                                                         │
-│  ➜ Front-runners see the commitment hash only.          │
-│    Transaction content is hidden until after ordering.  │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
-```
+1. Browser generates `secret = random()` and computes `C = Poseidon(addr, key, secret)`
+2. Browser sends `POST /rpc/private-events` with `{ commitment: C, proofInputs: [addr, key, secret] }`
+3. Relay verifies `Poseidon(proofInputs) == C` — rejects with 403 if invalid
+4. Relay calls `starknet_getEvents(fromBlock, toBlock)` with **no address or key filter** — blind superset
+5. Relay returns up to 500 events to the browser
+6. Browser filters locally: `event.from_address == addr && event.keys[0] == key`
+
+The relay never sees the plaintext filter — it only verifies the commitment.
+
+**Component 2 — Private Mempool**
+
+1. Browser generates `secret = random()` and computes `C = Poseidon(txHash, pubkey, nonce, secret)`
+2. Browser sends `POST /rpc/submit-commitment` with `{ commitment: C, proofInputs: [...] }`
+3. Relay verifies the commitment and stores it with a 30-second time-lock
+4. Relay returns `{ position, timeLockExpiry }` — ordering is locked, transaction content still hidden
+5. After 30 seconds, browser sends `POST /rpc/reveal-tx` with `{ commitment: C, txPayload }`
+6. Relay checks time-lock has elapsed, then forwards the transaction to the sequencer
+
+Front-runners see only a hash during the time-lock window. Content is revealed after ordering is final.
 
 ---
 
