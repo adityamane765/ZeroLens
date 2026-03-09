@@ -1,4 +1,4 @@
-# DarkIndex
+# ZeroLens
 
 **Privacy-preserving event indexing and private mempool for Starknet.**
 
@@ -18,11 +18,11 @@ Starknet has two invisible surveillance layers:
 
 ## The Solution
 
-DarkIndex adds a ZK-gated privacy relay in front of Starknet RPC:
+ZeroLens adds a ZK-gated privacy relay in front of Starknet RPC:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                      DarkIndex                          │
+│                       ZeroLens                          │
 │                                                         │
 │  Component 1: Private Event Indexer                     │
 │                                                         │
@@ -107,7 +107,7 @@ This pattern — hash preimage as ZK-lite proof — is standard in privacy proto
 ## Repository Structure
 
 ```
-darkindex/
+ZeroLens/
 ├── packages/
 │   ├── circuits/          # Cairo ZK circuit library (formal proof specs)
 │   │   ├── src/
@@ -127,9 +127,9 @@ darkindex/
 │   │   └── demo/
 │   │       └── e2e-demo.ts  # End-to-end demonstration script
 │   │
-│   ├── sdk/               # DarkIndexClient (npm package)
+│   ├── sdk/               # ZeroLensClient (npm package)
 │   │   └── src/
-│   │       ├── DarkIndexClient.ts
+│   │       ├── ZeroLensClient.ts
 │   │       ├── crypto/    # Poseidon + secret generation
 │   │       └── proof/     # Filter + tx commitment builders
 │   │
@@ -155,8 +155,8 @@ darkindex/
 ### Install
 
 ```bash
-git clone https://github.com/yourusername/darkindex
-cd darkindex
+git clone https://github.com/yourusername/ZeroLens
+cd ZeroLens
 npm install
 ```
 
@@ -210,7 +210,7 @@ This runs through the full privacy flow:
 cd packages/contracts
 scarb build
 
-starkli declare target/dev/darkindex_contracts_CommitmentRegistry.contract_class.json \
+starkli declare target/dev/ZeroLens_contracts_CommitmentRegistry.contract_class.json \
   --rpc https://starknet-sepolia.public.blastapi.io/rpc/v0_7 \
   --account ~/.starkli/account.json --keystore ~/.starkli/signer.json
 
@@ -289,9 +289,9 @@ WebSocket stream. Messages: `{ type: "commitment_added" | "tx_revealed", ... }`.
 ## SDK Usage
 
 ```typescript
-import { DarkIndexClient } from '@darkindex/sdk';
+import { ZeroLensClient } from '@ZeroLens/sdk';
 
-const client = new DarkIndexClient({ relayUrl: 'http://localhost:3001' });
+const client = new ZeroLensClient({ relayUrl: 'http://localhost:3001' });
 
 // Component 1: Private event watching
 const { commitment, events } = await client.watchEvents({
