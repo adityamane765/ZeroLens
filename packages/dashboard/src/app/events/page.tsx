@@ -38,7 +38,7 @@ export default function EventsPage() {
         </div>
       )}
 
-      <EventStreamPanel events={events} />
+      <EventStreamPanel events={events} queried={!!commitment} />
     </div>
   );
 }
